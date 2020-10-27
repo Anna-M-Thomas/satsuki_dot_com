@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Kitty</title> 
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+  <div class="wrapper">
+  	<div class="frame">
+  		<div class="longdiv">
+  			
+  		</div>
+  	</div>
+  	<div class="slider">
+  		<button id="left" data-move="-1">←</button><div id="dots"></div><button id="right" data-move="1">→</button>
+  	</div>
+  	<button id="play">Slideshow</button>
+ </div>
+
+    <script>
+    	const imgs = [	'img/IMG_8273.JPG', 
+    					'img/IMG_8979.JPG', 
+    					'img/IMG_9017.JPG', 
+    					'img/IMG_9126.JPG', 
+    					'img/IMG_9048.JPG',
+    					'img/IMG_8962.JPG', 
+              'img/IMG_9115.JPG'];
+              
+    	const imgDiv = document.querySelector(".longdiv"); 
+    	const dotsDiv = document.querySelector("#dots"); 
+    	const slider = document.querySelector(".slider");
+    	const play = document.querySelector("#play");
+
+    	imgDiv.innerHTML = imgs.map(image => `<div class="imgdiv"><img src=${image}></div>`).join("");
+    	
+    	for(i=0; i<imgs.length; i++){
+    		dotsDiv.innerHTML += `<div class="dot" data-index=${i}>${i==0? "●": "○"}</div>`;
+    	 }
+    	
+    	const dots = document.querySelectorAll(".dot");
+    	const imgNodes = Array.from(document.querySelectorAll(".imgdiv"));
+
+    	let picIndex = 0;
+    	let position = 0;
+    	let interval;
+    	let clicked = false;
+
+
+		function navigate(e){
+			e.target.dataset.index ? picIndex = parseInt(e.target.dataset.index): "";
+
+			e.target.dataset.move ? picIndex += parseInt(e.target.dataset.move): "";
+
+			changeSlides(picIndex);
+		
+		}
+
+		function changeSlides(index){
+			position = 0;
+
+			picIndex < 0 ? picIndex = 0: "";
+			
+			picIndex > imgNodes.length -1 ? picIndex = imgNodes.length - 1: "";
+
+			for(i=0; i<picIndex; i++){
+				position -= 500;
+			}
+
+			document.documentElement.style.setProperty(`--img-position`, `${position}px`);
+
+			dots.forEach(dot=>dot.innerHTML = "○");
+    		dots[picIndex].innerHTML= "●";
+		}
+
+		function counter(){
+			picIndex >= imgNodes.length -1 ? picIndex = 0: picIndex++;
+			changeSlides(picIndex);
+		}
+
+		function slideShow(){
+			if(clicked==false){
+				play.innerHTML = "Stop";
+				clicked = true;
+				interval = setInterval(counter, 3000);
+			}else {
+				play.innerHTML = "Slideshow";
+				clicked = false;
+				clearInterval(interval);
+			}
+		}
+
+    	slider.addEventListener("click", navigate);
+    	play.addEventListener("click", slideShow);
+
+    </script>
+</body>
+
+</html>

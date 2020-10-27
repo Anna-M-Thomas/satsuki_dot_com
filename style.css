@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+ :root {
+      --img-position: -0px;
+    }
+
+  body {
+    padding: 100px;
+    background: url(IMG_9076.png), blue;
+  }
+
+.wrapper {
+  max-width: 1000px;
+  min-width: 550px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.frame {
+    margin: 0 auto;
+    width: 500px;
+    height: 400px;
+    overflow: hidden;
+    background: black;
+    border: inset 5px black;
+}
+
+img {
+  height: 400px;
+  margin: 0 auto;
+}
+
+.imgdiv {
+  min-width: 500px;
+  background-color: black;
+  text-align: center;
+}
+
+.slider {
+    margin: 0 auto;
+    width: 500px;
+    height: 50px;
+    display:flex;
+    justify-content: space-between;
+    cursor: pointer;
+    background: white;
+    border-left: inset 5px black;
+    border-right: inset 5px black;
+    border-bottom: inset 5px black;
+}
+
+button {
+  flex: 1;
+  cursor: pointer;
+  font-size: 30px;
+  border: inset 2px black;
+}
+
+#left, #right {
+  border: none;
+  background-color: white;
+}
+
+.longdiv {
+  display: flex;
+  height: 400px;
+  position: relative;
+  left: var(--img-position);
+  transition: all 1s ease;
+}
+
+#play {
+  padding: 5px 20px;
+  margin-top: 10px;
+  font-family: Verdana;
+}
+
+#dots{
+  display: flex;
+  flex: 3;
+}
+
+.dot {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
